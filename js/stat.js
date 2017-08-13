@@ -24,12 +24,14 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
 
+  max = max.toFixed(2);
+
   ctx.fillText('Худшее время: ' + max, 120, 60);
 
   var histogramHeight = 150;
   var step = histogramHeight / max;
 
-  ctx.fillText('Худшее время: ' + max.toFixed(2) + 'мс у игрока ' + names[maxIndex], 120, 60);
+  ctx.fillText('Худшее время: ' + max + 'мс у игрока ' + names[maxIndex], 120, 60);
 
   ctx.textBaseline = 'top';
 
@@ -41,8 +43,7 @@ window.renderStatistics = function (ctx, names, times) {
     if (names[j] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
     } else {
-      ctx.fillStyle = 'blue';
-      ctx.fillStyle = 'filter: saturate(0)';
+      ctx.fillStyle = 'rgba(0, 0, ' + Math.floor(Math.random() * (255 + 1)) + ', 1)';
     }
     ctx.fillRect(initialX, initialY, -barWidth, -times[j] * step);
     ctx.fillStyle = 'black';
