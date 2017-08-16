@@ -13,25 +13,40 @@ window.renderStatistics = function (ctx, names, times) {
 
   ctx.textBaseline = 'top';
 
-  var max = maxTime(times);
+  var max = maxValue(times);
   var histogramHeight = 150;
   var step = histogramHeight / max;
 
   renderHistogram(ctx, step, 180, 250, 40, names, times);
 };
 
-function maxTime(times) {
+/**
+ * Возвращает максимальное значение из массива
+ * @param {Array} array
+ * @return {number}
+ */
+function maxValue(array) {
   var max = -1;
 
-  for (var i = 0; i < times.length; i++) {
-    if (times[i] > max) {
-      max = times[i];
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] > max) {
+      max = array[i];
     }
   }
 
   return max;
 }
 
+/**
+ * Отрисовывает гистограму с подписями имён и значений гистограмы
+ * @param {Object} ctx Объект канваса
+ * @param {number} step Шаг
+ * @param {number} initialX Координат по оси Х
+ * @param {number} initialY Координат по оси Y
+ * @param {namber} barWidth Ширина колонки
+ * @param {Array} names Массив имён
+ * @param {Array} times Массив времён
+ */
 function renderHistogram(ctx, step, initialX, initialY, barWidth, names, times) {
   for (var i = 0; i < times.length; i++) {
     if (names[i] === 'Вы') {
@@ -47,6 +62,14 @@ function renderHistogram(ctx, step, initialX, initialY, barWidth, names, times) 
   }
 }
 
+/**
+ * Отрисовывает прямоугльник с тенью
+ * @param {Object} ctx Объект канваса
+ * @param {number} x Координат по оси Х
+ * @param {numder} y Координат по оси Y
+ * @param {number} width Ширина прямоугольника
+ * @param {number} height Высота прямоугольника
+ */
 function renderStatisticsField(ctx, x, y, width, height) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
   ctx.strokeRect(x + 10, y + 10, width, height);
